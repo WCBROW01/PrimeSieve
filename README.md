@@ -38,3 +38,4 @@ Going any higher is unnecessary, since every number that we need to check has al
 |   100,000,000 |        5,761,455 |
 | 1,000,000,000 |       50,847,534 |
 
+Upper limit for this program: 2,147,391,110
