@@ -1,0 +1,1 @@
+WCBWOR01, Inc. is not responsible for irresponsible use of for loops in this software. Iterating through values is done at your own risk, and WCBROW01, Inc. disclaims harm or injury resulting from these activities. Go Chiefs.
