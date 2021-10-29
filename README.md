@@ -1,6 +1,6 @@
 # PrimeSieve
 
-An optimized implementation of the Sieve of Eratosthenes.
+An optimized (but not very well-optimized) implementation of the Sieve of Eratosthenes.
 
 ### An explanation:
 
