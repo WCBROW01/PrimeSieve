@@ -1,6 +1,6 @@
 # PrimeSieve
 
-An optimized (but not very well-optimized) implementation of the Sieve of Eratosthenes.
+An optimized (but not very well-optimized) implementation of the Sieve of Eratosthenes in both Java and C. The C implementation is currently much better.
 
 ### An explanation:
 
@@ -38,4 +38,8 @@ Going any higher is unnecessary, since every number that we need to check has al
 |   100,000,000 |        5,761,455 |
 | 1,000,000,000 |       50,847,534 |
 
-Upper limit for this program: 2,147,391,110
+Upper limit for the Java implementation of this program: 2,147,391,110
+
+### Build instructions (for C version)
+
+Just run `make` and you should get a usable executable! There are no dependencies.
