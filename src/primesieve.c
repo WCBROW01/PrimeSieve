@@ -6,6 +6,7 @@
 #include <time.h>
 
 void findPrimes(long limit, bool printPrimes) {
+	clock_t begin = clock();
 	long numComposite = 1;
 	bool *primes;
 	primes = malloc((limit + 1) * sizeof(bool));
@@ -28,6 +29,10 @@ void findPrimes(long limit, bool printPrimes) {
 					numComposite++;
 				}
 	
+	clock_t end = clock();
+	long time_spent = (end - begin) / (CLOCKS_PER_SEC / 1000);
+	printf("Time to complete: %ldms\n", time_spent);
+	
 	printf("Number of primes: %ld\n", limit - numComposite);
 	
 	if (printPrimes) {
@@ -44,13 +49,9 @@ int main(int argc, char *argv[]) {
 	if (argc >= 2) {
 		bool printPrimes = 0;
 		if (argc >= 3 && strcmp(argv[2], "--print-primes") == 0)
-			printPrimes = 1;
-				
-		clock_t begin = clock();
+			printPrimes = 1;		
+		
 		findPrimes(atol(argv[1]), printPrimes);
-		clock_t end = clock();
-		long time_spent = (end - begin) / (CLOCKS_PER_SEC / 1000);
-		printf("Time to complete: %ldms\n", time_spent);
 		return 0;
 	} else {
 		printf("No limit provided.\n");
