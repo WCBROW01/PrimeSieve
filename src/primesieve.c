@@ -5,7 +5,7 @@
 #include <math.h>
 #include <time.h>
 
-void findPrimes(long limit) {
+void findPrimes(long limit, bool printPrimes) {
 	long numComposite = 1;
 	bool *primes;
 	primes = malloc((limit + 1) * sizeof(bool));
@@ -15,12 +15,12 @@ void findPrimes(long limit) {
 	primes[1] = 0;
 	primes[2] = 1;
 	
-	for (long i = 4UL; i <= limit; i += 2) {
+	for (long i = 4L; i <= limit; i += 2) {
 		primes[i] = 0;
 		numComposite++;
 	}
 	
-	for (long num = 3UL; num <= sqrt(limit); num += 2)
+	for (long num = 3L; num <= sqrt(limit); num += 2)
 		if (primes[num])
 			for (long multiple = num * num; multiple <= limit; multiple += 2 * num)
 				if (primes[multiple]) {
@@ -30,13 +30,24 @@ void findPrimes(long limit) {
 	
 	printf("Number of primes: %ld\n", limit - numComposite);
 	
+	if (printPrimes) {
+		printf("Primes found: 2");
+		for (long i = 3L; i <= limit; i += 2)
+			printf(", %d")
+		printf("\n");
+	}
+	
 	free(primes);
 }
 
 int main(int argc, char *argv[]) {
 	if (argc >= 2) {
+		bool printPrimes = 0;
+		if (argc >= 3 && strcmp(argv[2], "--print-primes") == 0)
+			printPrimes = 1;
+				
 		clock_t begin = clock();
-		findPrimes(atol(argv[1]));
+		findPrimes(atol(argv[1]), printPrimes);
 		clock_t end = clock();
 		long time_spent = (end - begin) / (CLOCKS_PER_SEC / 1000);
 		printf("Time to complete: %ldms\n", time_spent);
