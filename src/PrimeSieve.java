@@ -29,6 +29,8 @@ public class PrimeSieve implements PrimeSieveInterface {
 		 */
 		primes[0] = false;
 		primes[1] = false;
+		primes[2] = true;
+		
 		// Mark all multiples of 2 as composite so we can skip them later
 		for (int num = 4; num <= limit; num += 2) {
 			primes[num] = false;
