@@ -29,7 +29,7 @@ static int* makeBitArray(long length, char initialValue) {
 	return bitArray;
 }
 
-static BitList listBits(long length, int* bitArray) {
+static BitList listBits(long length, int *bitArray) {
 	BitList bitList;
 	bitList.length = length;
 	bitList.list = malloc(length * sizeof(long));
