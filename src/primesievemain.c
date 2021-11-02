@@ -11,6 +11,7 @@ void printPrimes() {
 		printf(", %ld", primeList.list[i]);
 		
 	printf("\n");
+	free(primeList.list);
 }
 
 int main(int argc, char *argv[]) {
