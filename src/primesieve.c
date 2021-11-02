@@ -20,8 +20,7 @@ void findPrimes(long limit, bool printPrimes) {
 	 * and make our code faster, so we will allocate an array based on the limit.
 	 * The length of the array will be divided by the length of an int. Adding 1
 	 * to the end of the array makes inaccuracy less likely with small values. */
-	int *primes;
-	primes = malloc(((limit + 1) / INT_WIDTH + 1) * sizeof(int));
+	int *primes = malloc(((limit + 1) / INT_WIDTH + 1) * sizeof(int));
 	// This sets every bit in the array to 1.
 	memset(primes, INT_MAX, ((limit + 1) / INT_WIDTH + 1) * sizeof(int));
 	
