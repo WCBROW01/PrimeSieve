@@ -6,10 +6,12 @@
 #include <time.h>
 #include <limits.h>
 
+#define INT_WIDTH ( sizeof(int) * 8 )
+
 // Macros for working with the integer bitfield.
-#define SetBit(A,k)   ( A[k/32] |=  (1 << (k%32)) )
-#define ClearBit(A,k) ( A[k/32] &= ~(1 << (k%32)) )
-#define CheckBit(A,k) ( A[k/32] &   (1 << (k%32)) )
+#define SetBit(A,k)   ( A[k/INT_WIDTH] |=  (1 << (k%INT_WIDTH)) )
+#define ClearBit(A,k) ( A[k/INT_WIDTH] &= ~(1 << (k%INT_WIDTH)) )
+#define CheckBit(A,k) ( A[k/INT_WIDTH] &   (1 << (k%INT_WIDTH)) )
 
 void findPrimes(long limit, bool printPrimes) {
 	clock_t begin = clock();
@@ -20,9 +22,9 @@ void findPrimes(long limit, bool printPrimes) {
 	 * making the number of bits the limit + 1 will make the rest of the code
 	 * slightly more readable, but this is still harder to read than the Java code. */
 	int *primes;
-	primes = malloc(((limit + 1) / 32) * sizeof(int));
+	primes = malloc(((limit + 1) / INT_WIDTH) * sizeof(int));
 	// This sets every bit in the array to 1.
-	memset(primes, INT_MAX, ((limit + 1) / 32) * sizeof(int));
+	memset(primes, INT_MAX, ((limit + 1) / INT_WIDTH) * sizeof(int));
 	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 0);
