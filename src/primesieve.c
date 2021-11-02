@@ -46,8 +46,8 @@ void findPrimes(long limit, bool printPrimes) {
 				}
 	
 	clock_t end = clock();
-	long time_spent = (end - begin) / (CLOCKS_PER_SEC / 1000);
-	printf("Time to complete: %ldms\n", time_spent);
+	long timeSpent = (end - begin) / (CLOCKS_PER_SEC / 1000);
+	printf("Time to complete: %ldms\n", timeSpent);
 	
 	printf("Number of primes: %ld\n", limit - numComposite);
 	
