@@ -41,16 +41,8 @@ void findPrimes(long newLimit) {
 	printf("Number of primes: %ld\n", numPrimes);
 }
 
-PrimeList listPrimes() {
-	PrimeList myPrimeList;
-	myPrimeList.numPrimes = numPrimes;
-	myPrimeList.list = malloc(numPrimes * sizeof(long));
-	long listIndex = 1;
-	myPrimeList.list[0] = 2;
-	for (long num = 3L; num <= limit; num += 2)
-		if (CheckBit(primes, num))
-			myPrimeList.list[listIndex++] = num;
-	
+BitList listPrimes() {
+	BitList primeList = listBits(numPrimes, primes);
 	free(primes);
-	return myPrimeList;
+	return primeList;
 }

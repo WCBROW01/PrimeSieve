@@ -11,18 +11,18 @@ int *semiprimes;
 
 void findSemiprimes(long limit) {
 	findPrimes(limit);
-	PrimeList myPrimeList = listPrimes();
+	BitList primeList = listPrimes();
 	
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill it with ones. */
-	 semiprimes = makeBitArray(limit + 1, 0);
+	semiprimes = makeBitArray(limit + 1, 0);
 	 
 	long i = 0;
 	long j = 0;
 	long multiple = 0;
-	for (i = 0L; i < myPrimeList.numPrimes; i++) {
-		for (j = i; j < myPrimeList.numPrimes; j++) {
-			multiple = myPrimeList.list[i] * myPrimeList.list[j];
+	for (i = 0L; i < primeList.length; i++) {
+		for (j = i; j < primeList.length; j++) {
+			multiple = primeList.list[i] * primeList.list[j];
 			if (multiple <= limit) {
 				if (!CheckBit(semiprimes, multiple)) {
 					SetBit(semiprimes, multiple);

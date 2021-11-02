@@ -5,9 +5,9 @@
 #include "primesieve.h"
 
 void printPrimes() {
-	PrimeList primeList = listPrimes();
+	BitList primeList = listPrimes();
 	printf("Primes found: 2");
-	for (long i = 1L; i < primeList.numPrimes; i++)
+	for (long i = 1L; i < primeList.length; i++)
 		printf(", %ld", primeList.list[i]);
 		
 	printf("\n");

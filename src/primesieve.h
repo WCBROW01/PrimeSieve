@@ -1,12 +1,9 @@
 #ifndef PRIMESIEVE_H
 #define PRIMESIEVE_H
 
-typedef struct {
-	long numPrimes;
-	long *list;
-} PrimeList;
+#include "bitops.h"
 
 void findPrimes(long limit);
-PrimeList listPrimes();
+BitList listPrimes();
 
 #endif
