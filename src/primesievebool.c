@@ -37,7 +37,7 @@ void findPrimes(long limit, bool printPrimes) {
 	if (printPrimes) {
 		printf("Primes found: 2");
 		for (long num = 3L; num <= limit; num += 2)
-			if (CheckBit(primes, num))
+			if (primes[num])
 				printf(", %ld", num);
 		printf("\n");
 	}
