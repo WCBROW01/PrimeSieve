@@ -18,13 +18,12 @@ void findPrimes(long limit, bool printPrimes) {
 	long numComposite = 1;
 	/* We are going to use an array of integers as a bitfield to save on memory
 	 * and make our code faster, so we will allocate an array based on the limit.
-	 * The length of the array will be divided by the length of an int.
-	 * Making the number of bits the limit + 1 will make the rest of the code
-	 * slightly more readable, but this is still harder to read than the Java code. */
+	 * The length of the array will be divided by the length of an int. Adding 1
+	 * to the end of the array makes inaccuracy less likely with small values. */
 	int *primes;
-	primes = malloc(((limit + 1) / INT_WIDTH) * sizeof(int));
+	primes = malloc(((limit + 1) / INT_WIDTH + 1) * sizeof(int));
 	// This sets every bit in the array to 1.
-	memset(primes, INT_MAX, ((limit + 1) / INT_WIDTH) * sizeof(int));
+	memset(primes, INT_MAX, ((limit + 1) / INT_WIDTH + 1) * sizeof(int));
 	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 0);
