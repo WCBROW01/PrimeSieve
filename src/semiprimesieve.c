@@ -6,10 +6,11 @@
 #include "bitops.h"
 #include "primesieve.h"
 
-long numSemiprimes = 0;
+long numSemiprimes;
 int *semiprimes;
 
 void findSemiprimes(long limit) {
+	numSemiprimes = 0;
 	findPrimes(limit);
 	BitList primeList = listPrimes();
 	
@@ -32,24 +33,15 @@ void findSemiprimes(long limit) {
 		}
 	}	
 	
+	free(primeList.list);
 	printf("Number of semiprimes: %ld\n", numSemiprimes);
 }
 
-/*
-PrimeList listPrimes() {
-	PrimeList myPrimeList;
-	myPrimeList.numPrimes = numPrimes;
-	myPrimeList.list = malloc(numPrimes * sizeof(long));
-	long listIndex = 1;
-	myPrimeList.list[0] = 2;
-	for (long num = 3L; num <= limit; num += 2)
-		if (CheckBit(primes, num))
-			myPrimeList.list[listIndex++] = num;
-	
-	free(primes);
-	return myPrimeList;
+BitList listSemiprimes() {
+	BitList semiprimeList = listBits(numSemiprimes, semiprimes);
+	free(semiprimes);
+	return semiprimeList;
 }
-*/
 
 int main(int argc, char *argv[]) {
 	// The second argument is the limit of the sieve
