@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <time.h>
 
 #include "bitops.h"
 #include "primesieve.h"
@@ -14,7 +13,6 @@ void findSemiprimes(long limit) {
 	findPrimes(limit);
 	PrimeList myPrimeList = listPrimes();
 	
-	clock_t begin = clock();
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill it with ones. */
 	 semiprimes = makeBitArray(limit + 1, 0);
@@ -33,10 +31,6 @@ void findSemiprimes(long limit) {
 			} else break;
 		}
 	}	
-	
-	clock_t end = clock();
-	long timeSpent = (end - begin) / (CLOCKS_PER_SEC / 1000);
-	printf("Time to complete: %ldms\n", timeSpent);
 	
 	printf("Number of semiprimes: %ld\n", numSemiprimes);
 }

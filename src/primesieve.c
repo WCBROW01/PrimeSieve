@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
-#include <time.h>
 
 #include "bitops.h"
 #include "primesieve.h"
@@ -13,7 +12,6 @@ int *primes;
 
 void findPrimes(long newLimit) {
 	limit = newLimit;
-	clock_t begin = clock();
 	long numComposite = 1;
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill it with ones. */
@@ -38,10 +36,6 @@ void findPrimes(long newLimit) {
 					ClearBit(primes, multiple);
 					numComposite++;
 				}
-	
-	clock_t end = clock();
-	long timeSpent = (end - begin) / (CLOCKS_PER_SEC / 1000);
-	printf("Time to complete: %ldms\n", timeSpent);
 	
 	numPrimes = limit - numComposite;
 	printf("Number of primes: %ld\n", numPrimes);
