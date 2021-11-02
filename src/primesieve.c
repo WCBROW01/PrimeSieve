@@ -17,14 +17,9 @@ void findPrimes(long newLimit) {
 	limit = newLimit;
 	clock_t begin = clock();
 	long numComposite = 1;
-	/* We are going to use an array of integers as a bitfield to save on memory
-	 * and make our code faster, so we will allocate an array based on the limit.
-	 * The length of the array will be divided by the length of an int. Adding 1
-	 * to the end of the array makes inaccuracy less likely with small values. */
-	long arrayLength = (limit + 1) / INT_WIDTH + 1;
-	primes = malloc(arrayLength * sizeof(int));
-	// This sets every bit in the array to 1.
-	memset(primes, INT_MAX, (arrayLength * sizeof(int)));
+	/* We are going to use a bit array to save on memory and make our code faster,
+	 * so we will allocate an array based on the limit and fill it with ones. */
+	 primes = makeBitArray(limit + 1, 1);
 	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 0);
