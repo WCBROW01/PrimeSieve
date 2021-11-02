@@ -20,7 +20,7 @@ int main(int argc, char *argv[]) {
 		// begin sieve, using second arg as the limit for the sieve
 		findSemiprimes(atol(argv[1]));
 		// If there is a third argument, check if it is to print
-		if (argc >= 3 && strcmp(argv[2], "--print-primes") == 0)
+		if (argc >= 3 && strcmp(argv[2], "--print-semiprimes") == 0)
 			printSemiprimes();
 		
 		return 0;
