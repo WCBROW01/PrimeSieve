@@ -7,15 +7,13 @@
 #include "primesieve.h"
 
 long numPrimes;
-long limit;
 int *primes;
 
-void findPrimes(long newLimit) {
-	limit = newLimit;
+void findPrimes(long limit) {
 	long numComposite = 1;
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill it with ones. */
-	 primes = makeBitArray(limit + 1, 1);
+	primes = makeBitArray(limit + 1, 1);
 	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 0);
