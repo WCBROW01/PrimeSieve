@@ -14,10 +14,9 @@ void findPrimes(long limit, bool printPrimes) {
 	
 	primes[0] = 0;
 	primes[1] = 0;
-	primes[2] = 1;
 	
-	for (long i = 4L; i <= limit; i += 2) {
-		primes[i] = 0;
+	for (long num = 4L; num <= limit; num += 2) {
+		primes[num] = 0;
 		numComposite++;
 	}
 	
@@ -37,8 +36,9 @@ void findPrimes(long limit, bool printPrimes) {
 	
 	if (printPrimes) {
 		printf("Primes found: 2");
-		for (long i = 3L; i <= limit; i += 2)
-			printf(", %ld", i);
+		for (long num = 3L; num <= limit; num += 2)
+			if (CheckBit(primes, num))
+				printf(", %ld", num);
 		printf("\n");
 	}
 	
