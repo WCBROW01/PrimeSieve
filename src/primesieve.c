@@ -17,9 +17,9 @@ void findPrimes(long limit, bool printPrimes) {
 	clock_t begin = clock();
 	long numComposite = 1;
 	/* We are going to use an array of integers as a bitfield to save on memory
-	 * and make our code faster, so we will allocate an array based on the limit,
-	 * but the length will be divided by 32. (since there are 32 bits in an int)
-	 * making the number of bits the limit + 1 will make the rest of the code
+	 * and make our code faster, so we will allocate an array based on the limit.
+	 * The length of the array will be divided by the length of an int.
+	 * Making the number of bits the limit + 1 will make the rest of the code
 	 * slightly more readable, but this is still harder to read than the Java code. */
 	int *primes;
 	primes = malloc(((limit + 1) / INT_WIDTH) * sizeof(int));
