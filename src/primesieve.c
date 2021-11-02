@@ -1,10 +1,8 @@
-#include <stdbool.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <string.h>
 #include <math.h>
 #include <time.h>
-#include <limits.h>
 
 #include "bitops.h"
 #include "primesieve.h"
