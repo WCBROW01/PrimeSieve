@@ -68,10 +68,10 @@ void findPrimes(long limit, bool printPrimes) {
 int main(int argc, char *argv[]) {
 	// The second argument is the limit of the sieve
 	if (argc >= 2) {
-		bool printPrimes = 0;
+		bool printPrimes = false;
 		// If there is a third argument, check if it is to print
 		if (argc >= 3 && strcmp(argv[2], "--print-primes") == 0)
-			printPrimes = 1;		
+			printPrimes = true;		
 		
 		// begin sieve, using second arg as the limit for the sieve
 		findPrimes(atol(argv[1]), printPrimes);
