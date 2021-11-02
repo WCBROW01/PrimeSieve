@@ -29,6 +29,7 @@ static int* makeBitArray(long length, char initialValue) {
 	return bitArray;
 }
 
+// Creates an array, with each element being the numerical position of a 1.
 static BitList listBits(long length, int *bitArray) {
 	BitList bitList;
 	bitList.length = length;
