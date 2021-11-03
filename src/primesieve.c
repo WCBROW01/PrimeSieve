@@ -18,7 +18,6 @@ void findPrimes(long limit) {
 	primes = makeBitArray(limit + 1, 0xaa);
 	
 	// Predefine values that we're skipping in the sieve.
-	ClearBit(primes, 0);
 	ClearBit(primes, 1);
 	SetBit(primes, 2);
 	
