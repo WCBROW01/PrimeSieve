@@ -8,6 +8,7 @@
 
 #define SetBit(A,k)   ( A[k/INT_WIDTH] |=  (1 << (k%INT_WIDTH)) )
 #define ClearBit(A,k) ( A[k/INT_WIDTH] &= ~(1 << (k%INT_WIDTH)) )
+#define FlipBit(A,k)  ( A[k/INT_WIDTH] ^=  (1 << (k%INT_WIDTH)) )
 #define CheckBit(A,k) ( A[k/INT_WIDTH] &   (1 << (k%INT_WIDTH)) )
 
 typedef struct {
