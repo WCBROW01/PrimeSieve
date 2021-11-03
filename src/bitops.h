@@ -1,11 +1,10 @@
 #ifndef BITOPS_H
 #define BITOPS_H
 
+#define __STDC_WANT_IEC_60559_BFP_EXT__
 #include <limits.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define INT_WIDTH ( sizeof(int) * 8 )
 
 #define SetBit(A,k)   ( A[k/INT_WIDTH] |=  (1 << (k%INT_WIDTH)) )
 #define ClearBit(A,k) ( A[k/INT_WIDTH] &= ~(1 << (k%INT_WIDTH)) )
