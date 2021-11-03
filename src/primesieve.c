@@ -10,7 +10,7 @@ long numPrimes;
 int *primes;
 
 void findPrimes(long limit) {
-	long numComposite = limit / 2; // All multiples are 2 are already marked.
+	long numComposite = limit / 2; // All multiples of 2 are already marked.
 	
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill every byte with
