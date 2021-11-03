@@ -23,9 +23,9 @@ static int* makeBitArray(long length, char initialValue) {
 	int *bitArray = malloc(arrayLength * sizeof(int));
 	
 	if (initialValue)
-		memset(bitArray, INT_MAX, (arrayLength * sizeof(int)));
+		memset(bitArray, 0xff, (arrayLength * sizeof(int)));
 	else
-		memset(bitArray, INT_MIN, (arrayLength * sizeof(int)));
+		memset(bitArray, 0x00, (arrayLength * sizeof(int)));
 	
 	return bitArray;
 }
