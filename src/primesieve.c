@@ -10,20 +10,17 @@ long numPrimes;
 int *primes;
 
 void findPrimes(long limit) {
-	long numComposite = 1;
+	long numComposite = limit / 2; // All multiples are 2 are already marked.
+	
 	/* We are going to use a bit array to save on memory and make our code faster,
-	 * so we will allocate an array based on the limit and fill it with ones. */
-	primes = makeBitArray(limit + 1, 1);
+	 * so we will allocate an array based on the limit and fill every byte with
+	 * a value that pre-mark every even number. */
+	primes = makeBitArray(limit + 1, 0xaa);
 	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 0);
 	ClearBit(primes, 1);
-	
-	// Mark all multiples of 2 as composite
-	for (long num = 4L; num <= limit; num += 2) {
-		ClearBit(primes, num);
-		numComposite++;
-	}
+	SetBit(primes, 2);
 	
 	// Loop through all odd numbers up to the square root of limit
 	for (long num = 3L; num <= sqrt(limit); num += 2)
