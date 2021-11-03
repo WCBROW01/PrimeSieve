@@ -6,7 +6,7 @@
 
 void printSemiprimes() {
 	BitList semiprimeList = listSemiprimes();
-	printf("Primes found: 2");
+	printf("Semiprimes found: 4");
 	for (long i = 1L; i < semiprimeList.length; i++)
 		printf(", %ld", semiprimeList.list[i]);
 		
