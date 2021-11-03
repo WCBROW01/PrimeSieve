@@ -6,7 +6,7 @@
 
 void printPrimes() {
 	BitList primeList = listPrimes();
-	printf("Primes found: 2");
+	printf("Primes found: %ld", primeList.list[0]);
 	for (long i = 1L; i < primeList.length; i++)
 		printf(", %ld", primeList.list[i]);
 		
