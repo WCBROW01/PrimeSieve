@@ -1,8 +1,20 @@
-primesieve: ./src/primesieve.c ./src/primesievemain.c
-	gcc -o primesieve ./src/primesieve.c ./src/primesievemain.c -lm -O2
-	
-primesievebool: ./src/primesievebool.c
-	gcc -o primesievebool ./src/primesievebool.c -lm -O2
+CC=gcc
 
-semiprimesieve: ./src/semiprimesievemain.c ./src/semiprimesieve.c ./src/primesieve.c
-	gcc -o semiprimesieve ./src/semiprimesievemain.c ./src/semiprimesieve.c ./src/primesieve.c -lm -O2
+primesieve: ./src/primesievemain.c primesieve.o
+	$(CC) -o primesieve ./src/primesievemain.c primesieve.o -lm -O2
+
+primesieve.o: ./src/primesieve.c
+	$(CC) -o primesieve.o ./src/primesieve.c -c -lm -O2
+
+semiprimesieve: ./src/semiprimesievemain.c semiprimesieve.o primesieve.o
+	$(CC) -o semiprimesieve ./src/semiprimesievemain.c semiprimesieve.o primesieve.o -lm -O2
+
+semiprimesieve.o: ./src/semiprimesieve.c
+	$(CC) -o semiprimesieve.o ./src/semiprimesieve.c -c -lm -O2
+
+fast:
+	$(CC) -o primesieve.o ./src/primesieve.c -c -lm -O2 -march=native
+	$(MAKE) primesieve
+
+clean:
+	rm *.o
