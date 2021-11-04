@@ -4,6 +4,6 @@
 #include "bitops.h"
 
 void findSemiprimes(long limit);
-BitList listSemiprimes();
+BitList listSemiprimes(void);
 
 #endif

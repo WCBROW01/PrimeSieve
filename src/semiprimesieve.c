@@ -33,7 +33,7 @@ void findSemiprimes(long limit) {
 	printf("Number of semiprimes: %ld\n", numSemiprimes);
 }
 
-BitList listSemiprimes() {
+BitList listSemiprimes(void) {
 	BitList semiprimeList = listBits(numSemiprimes, semiprimes);
 	free(semiprimes);
 	return semiprimeList;

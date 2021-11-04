@@ -4,7 +4,7 @@
 
 #include "semiprimesieve.h"
 
-void printSemiprimes() {
+void printSemiprimes(void) {
 	BitList semiprimeList = listSemiprimes();
 	printf("Semiprimes found: %ld", semiprimeList.list[0]);
 	for (long i = 1L; i < semiprimeList.length; i++)

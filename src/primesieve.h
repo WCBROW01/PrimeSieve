@@ -4,6 +4,6 @@
 #include "bitops.h"
 
 void findPrimes(long limit);
-BitList listPrimes();
+BitList listPrimes(void);
 
 #endif

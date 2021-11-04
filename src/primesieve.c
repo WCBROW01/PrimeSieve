@@ -35,7 +35,7 @@ void findPrimes(long limit) {
 	printf("Number of primes: %ld\n", numPrimes);
 }
 
-BitList listPrimes() {
+BitList listPrimes(void) {
 	BitList primeList = listBits(numPrimes, primes);
 	free(primes);
 	return primeList;
