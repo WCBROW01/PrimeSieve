@@ -12,7 +12,7 @@ semiprimesieve: ./src/semiprimesievemain.c semiprimesieve.o primesieve.o
 semiprimesieve.o: ./src/semiprimesieve.c
 	$(CC) -o semiprimesieve.o ./src/semiprimesieve.c -c -O2
 
-fast: ./src/primesieve.c
+fast: ./src/primesievemain.c ./src/primesieve.c
 	$(CC) -o primesieve.o ./src/primesieve.c -c -O2 -march=native
 	$(MAKE) primesieve
 
