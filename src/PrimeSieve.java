@@ -44,7 +44,7 @@ public class PrimeSieve implements PrimeSieveInterface {
 	 * @return list of prime numbers
 	 */
 	public long[] listPrimes() {
-		return primes.listBits();
+		return primes.listBits(numPrimes);
 	}
 	
 	/**

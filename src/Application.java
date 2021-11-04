@@ -30,8 +30,11 @@ public class Application {
 	}
 	
 	private static void printPrimes(long[] primeList) {
-		for (long number : primeList)
-			System.out.print(number + " ");
+		System.out.print("Primes found: " + primeList[0]);
+		for (int i = 1; i < primeList.length; i++)
+			System.out.print(", " + primeList[i]);
+			
+		System.out.println();
 	}
 
 }

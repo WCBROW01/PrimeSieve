@@ -14,7 +14,7 @@ public class BitArray {
 	 * @param fillValue value to fill the bit array with
 	 */
 	public BitArray(long length, int fillValue) {
-		int arrayLength = (int) (length / INT_WIDTH + 1);
+		int arrayLength = (int) (length / INT_WIDTH) + 1;
 		A = new int[arrayLength];
 		Arrays.fill(A, fillValue);
 	}
@@ -39,11 +39,11 @@ public class BitArray {
 	 * Creates an array, with each element being the numerical position of a 1.
 	 * @return list of bits that had a value of 1.
 	 */
-	public long[] listBits() {
-		long[] bitList = new long[A.length];
+	public long[] listBits(int length) {
+		long[] bitList = new long[length];
 		long bitIndex = 0L;
 		int listIndex = 0;
-		while (listIndex < A.length) {
+		while (listIndex < length) {
 			if (checkBit(bitIndex)) {
 				bitList[listIndex++] = bitIndex;
 			} bitIndex++;
