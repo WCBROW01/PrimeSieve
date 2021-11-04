@@ -8,15 +8,15 @@ public interface PrimeSieveInterface {
 	
 	/**
 	 * Main sieve method to find prime numbers.
-	 * @param limit the upper bound of the sieve
+	 * @param l the upper bound of the sieve
 	 */
-	public void findPrimes(int limit);
+	public void findPrimes(long l);
 	
 	/**
 	 * Get the results of the sieve as a list of integers.
 	 * @return list of prime numbers
 	 */
-	public int[] listPrimes();
+	public long[] listPrimes();
 	
 	/**
 	 * Get the total number of primes.
