@@ -18,7 +18,7 @@ typedef struct {
 /* Allocate an array of ints based on the provided length.
  * The length of the array will be divided by the length of an int.
  * An extra entry is added because integers are usually rounded down. */
-static int* makeBitArray(long length, char fillValue) {
+static inline int* makeBitArray(long length, char fillValue) {
 	long arrayLength = length / INT_WIDTH + 1;
 	int *bitArray = malloc(arrayLength * sizeof(int));
 	memset(bitArray, fillValue, (arrayLength * sizeof(int)));
