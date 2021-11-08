@@ -23,8 +23,8 @@ public class PrimeSieve implements PrimeSieveInterface {
 		primes = new BitArray(limit + 1, 0xaaaaaaaa);
 		
 		// Predefine values that we're skipping in the sieve.
-		primes.clearBit(1L);
-		primes.setBit(2L);
+		primes.clearBit(1);
+		primes.setBit(2);
 		
 		// Loop through all odd numbers up to the square root of limit
 		for (long num = 3L; num <= Math.sqrt(limit); num += 2)
