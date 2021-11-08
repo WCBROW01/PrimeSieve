@@ -29,7 +29,7 @@ typedef struct {
  * An extra entry is added because integers are usually rounded down. */
 static inline int32_t* makeBitArray(long length, char fillValue) {
 	long arrayLength = length / 32 + 1;
-	int *bitArray = malloc(arrayLength * sizeof(int32_t));
+	int32_t *bitArray = malloc(arrayLength * sizeof(int32_t));
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
 	
 	return bitArray;
