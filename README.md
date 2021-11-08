@@ -8,9 +8,13 @@ The Sieve of Eratosthenes is a fast algorithm for searching for prime numbers. I
 
 ### How is this optimized?
 
+#### The status of every number is stored as a single bit.
+
+Normally, boolean values are stored as an entire byte because that is the smallest unit of memory that CPUs can address. Since only single bits are used, this decreases the memory usage by 8 times, not including any empty space at the end of the array. Time spent on memory allocation is also decreased as a result.
+
 #### Every even number is marked beforehand.
 
-This allows the main loop to only check whether odd numbers are prime, cutting the main loop in half. Since the loop marking even numbers doesn’t need to execute any checks, this ends up being much faster.
+This allows the main loop to only check whether odd numbers are prime, cutting the main loop in half. The memset call to fill the array uses an alternating sequence of bits, so even numbers are marked while the array is being created. (not even in a separate loop)
 
 #### The inner loop starts at the square of the given prime.
 
@@ -38,7 +42,7 @@ Going any higher is unnecessary, since every number that we need to check has al
 |   100,000,000 |        5,761,455 |
 | 1,000,000,000 |       50,847,534 |
 
-Upper limit for the Java implementation of this program: 2,147,391,110
+Upper limit for the C implementation of this program: however long your longs are
 
 ### Build instructions (for C version)
 
