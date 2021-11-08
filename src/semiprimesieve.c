@@ -22,12 +22,12 @@ void findSemiprimes(long limit) {
 	
 	// Loop through primeList, multiplying each number with the rest of the list.
 	for (long i = 0L; i < primeList.length; i++)
-		for (long j = i; j < primeList.length; j++) {
-			long multiple = primeList.list[i] * primeList.list[j];
-			if (multiple <= limit) {
-				SetBit(semiprimes, multiple);
-				numSemiprimes++;
-			} else break;
+		for (long j = i, multiple;
+			 multiple = primeList.list[i] * primeList.list[j] <= limit;
+			 j++)
+		{
+			SetBit(semiprimes, multiple);
+			numSemiprimes++;
 		}
 	
 	free(primeList.list);
