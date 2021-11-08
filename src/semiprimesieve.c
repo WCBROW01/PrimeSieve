@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <math.h>
 
@@ -8,7 +9,7 @@
 #include "semiprimesieve.h"
 
 long numSemiprimes;
-int *semiprimes;
+int32_t *semiprimes;
 
 void findSemiprimes(long limit) {
 	numSemiprimes = 0;

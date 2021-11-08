@@ -1,5 +1,6 @@
 #include <stdlib.h>
 #include <stdio.h>
+#include <stdint.h>
 #include <string.h>
 #include <math.h>
 
@@ -7,7 +8,7 @@
 #include "primesieve.h"
 
 long numPrimes;
-int *primes;
+int32_t *primes;
 
 void findPrimes(long limit) {
 	long numComposite = limit / 2; // All multiples of 2 are already marked.
