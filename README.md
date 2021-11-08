@@ -38,8 +38,4 @@ Going any higher is unnecessary, since every number that we need to check has al
 |   100,000,000 |        5,761,455 |
 | 1,000,000,000 |       50,847,534 |
 
-Upper limit for the Java implementation of this program: 2,147,391,110
-
-### Build instructions (for C version)
-
-Just run `make` and you should get a usable executable! There are no dependencies.
+Upper limit for the Java implementation of this program: 68,719,476,638
