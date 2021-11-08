@@ -14,7 +14,7 @@ public class Application {
 			long startTime = System.currentTimeMillis();
 			
 			// begin sieve, using second arg as the limit for the sieve
-			myPrimeSieve.findPrimes(Integer.parseInt(args[0]));
+			myPrimeSieve.findPrimes(Long.parseLong(args[0]));
 			System.out.println("Time to complete: " + (System.currentTimeMillis() - startTime) + "ms");
 			
 			// Print the number of primes it found for verification purposes.
