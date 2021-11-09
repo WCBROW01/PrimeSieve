@@ -10,7 +10,7 @@
 long numPrimes;
 int32_t *primes;
 
-void findPrimes(long limit) {
+long findPrimes(long limit) {
 	long numComposite = limit / 2; // All multiples of 2 are already marked.
 	
 	/* We are going to use a bit array to save on memory and make our code faster,
@@ -33,7 +33,7 @@ void findPrimes(long limit) {
 				}
 	
 	numPrimes = limit - numComposite;
-	printf("Number of primes: %ld\n", numPrimes);
+	return numPrimes;
 }
 
 BitList listPrimes(void) {

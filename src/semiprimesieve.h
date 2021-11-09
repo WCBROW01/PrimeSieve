@@ -3,7 +3,7 @@
 
 #include "bitops.h"
 
-void findSemiprimes(long limit);
+long findSemiprimes(long limit);
 BitList listSemiprimes(void);
 
 #endif

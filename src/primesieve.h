@@ -3,7 +3,7 @@
 
 #include "bitops.h"
 
-void findPrimes(long limit);
+long findPrimes(long limit);
 BitList listPrimes(void);
 
 #endif

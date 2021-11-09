@@ -11,7 +11,7 @@
 long numSemiprimes;
 int32_t *semiprimes;
 
-void findSemiprimes(long limit) {
+long findSemiprimes(long limit) {
 	numSemiprimes = 0;
 	findPrimes(limit);
 	BitList primeList = listPrimes();
@@ -31,7 +31,7 @@ void findSemiprimes(long limit) {
 		}
 	
 	free(primeList.list);
-	printf("Number of semiprimes: %ld\n", numSemiprimes);
+	return numSemiprimes;
 }
 
 BitList listSemiprimes(void) {
