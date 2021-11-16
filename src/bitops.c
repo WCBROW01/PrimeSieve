@@ -76,7 +76,7 @@ BitList listBits(long length, int32_t *bitArray) {
 	
 	if (bitArray == NULL) {
 		printf("Error listing bits. The bit array is null.");
-		bitList.list == NULL;
+		bitList.list = NULL;
 		return bitList;
 	}
 	
