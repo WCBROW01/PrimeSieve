@@ -22,7 +22,7 @@ static const char BITCOUNT[256] = { 0, 1, 1, 2, 1, 2, 2, 3, 1, 2, 2, 3, 2, 3,
 									6, 7, 4, 5, 5, 6, 5, 6, 6, 7, 5, 6, 6, 7,
 									6, 7, 7, 8 };
 
-static long countBits(int *bitArray, long limit) {
+long countBits(int *bitArray, long limit) {
 	// Cast bitarray to an unsigned char array so we can count each byte
 	unsigned char *arrayBytes = (unsigned char*) bitArray;
 	

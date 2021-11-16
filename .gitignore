@@ -1,2 +1,8 @@
+# build directories
+build
+
+# files in root output by build
 primesieve
-primesievebool
+semiprimesieve
+*.obj
+*.exe
