@@ -1,8 +1,6 @@
 #include "primesievejni.h"
 #include "primesieve.h"
 
-static jlong numPrimes;
-
 JNIEXPORT void JNICALL Java_PrimeSieve_findPrimes
   (JNIEnv *, jobject, jlong limit) {
 	numPrimes = findPrimes(limit);
