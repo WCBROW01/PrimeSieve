@@ -1,4 +1,4 @@
-CC=gcc -I$(HEADER_DIR)
+CC=gcc -Wall -I$(HEADER_DIR)
 HEADER_DIR=src/headers
 
 primesieve: src/primesievemain.c build/primesieve.o

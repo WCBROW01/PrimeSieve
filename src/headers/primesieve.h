@@ -3,10 +3,9 @@
 
 #include "bitops.h"
 
-static long numPrimes;
-static int32_t *primes;
+extern long numPrimes;
+extern int32_t *primes;
 
-long findPrimes(long limit);
-BitList listPrimes(void);
+extern long findPrimes(long limit);
 
 #endif

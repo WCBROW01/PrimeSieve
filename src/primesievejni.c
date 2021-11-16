@@ -8,7 +8,20 @@ JNIEXPORT void JNICALL Java_PrimeSieve_findPrimes
 
 JNIEXPORT jlongArray JNICALL Java_PrimeSieve_listPrimes
   (JNIEnv *env, jobject) { 
-	BitList primeList = listPrimes();
+	if (primes == NULL) {
+		printf("Primes have not been generated yet.\n");
+		return NULL;
+	}
+	
+	BitList primeList = listBits(numPrimes, primes);
+	
+	if (primeList.list == NULL) {
+		printf("Failed to create prime list.\n");
+		return NULL;
+	}
+	
+	free(primes);
+	
 	jlongArray newPrimeList = (*env)->NewLongArray(env, primeList.length);
 	
 	if (newPrimeList == NULL)

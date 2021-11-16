@@ -8,6 +8,9 @@
 #include "bitcount.h"
 #include "primesieve.h"
 
+long numPrimes;
+int32_t *primes;
+
 long findPrimes(long limit) {
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill every byte with
@@ -27,10 +30,4 @@ long findPrimes(long limit) {
 	
 	numPrimes = countBits(primes, limit);
 	return numPrimes;
-}
-
-BitList listPrimes(void) {
-	BitList primeList = listBits(numPrimes, primes);
-	free(primes);
-	return primeList;
 }

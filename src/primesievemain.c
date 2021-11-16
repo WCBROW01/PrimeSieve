@@ -6,7 +6,18 @@
 #include "primesieve.h"
 
 void printPrimes(void) {
-	BitList primeList = listPrimes();
+	if (primes == NULL) {
+		printf("Primes have not been generated yet.\n");
+		return;
+	}
+	
+	BitList primeList = listBits(numPrimes, primes);
+	
+	if (primeList.list == NULL) {
+		printf("Failed to create prime list.\n");
+		return;
+	}
+	
 	printf("Primes found: %ld", primeList.list[0]);
 	for (long i = 1L; i < primeList.length; i++)
 		printf(", %ld", primeList.list[i]);
@@ -33,6 +44,7 @@ int main(int argc, char *argv[]) {
 		if (argc >= 3 && strcmp(argv[2], "--print-primes") == 0)
 			printPrimes();
 		
+		free(primes);
 		return 0;
 	} else {
 		printf("No limit provided.\n");
