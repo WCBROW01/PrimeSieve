@@ -38,6 +38,8 @@ static long countBits(int *bitArray, long limit) {
 	for (long i = fastCountLen * 8 + 1; i <= limit; i++)
 		if (arrayBytes[i/8] & (BITMASKS[i%8]))
 			numOn++;
+	
+	return numOn;
 }
 
 #endif
