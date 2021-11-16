@@ -39,6 +39,11 @@ inline int32_t* makeBitArray(long length, char fillValue) {
 	long arrayLength = length / 32 + 1;
 	int32_t *bitArray = malloc(arrayLength * sizeof(int32_t));
 	
+	if (bitArray == NULL) {
+		printf("Not enough memory to create bit array.\n");
+		return NULL;
+	}
+	
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
 	
 	return bitArray;
@@ -46,7 +51,7 @@ inline int32_t* makeBitArray(long length, char fillValue) {
 
 long countBits(long length, int32_t *bitArray) {
 	if (bitArray == NULL) {
-		printf("Error counting bits. The bit array is null.");
+		printf("Error counting bits. The bit array is null.\n");
 		return 0;
 	}
 	
