@@ -24,9 +24,5 @@ java: build/libprimesievejni.so
 	cd build
 	jar cvfe PrimeSieve.jar Application PrimeSieveInterface.class PrimeSieve.class Application.class libprimesievejni.so
 
-fast: src/primesieve.c
-	$(CC) -o build/primesieve.o src/primesieve.c -c -O2 -march=native
-	$(MAKE) primesieve
-
 clean:
 	rm build/*
