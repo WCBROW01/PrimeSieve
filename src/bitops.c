@@ -44,7 +44,7 @@ inline int32_t* makeBitArray(long length, char fillValue) {
 	return bitArray;
 }
 
-long countBits(int32_t *bitArray, long length) {
+long countBits(long length, int32_t *bitArray) {
 	if (bitArray == NULL) {
 		printf("Error counting bits. The bit array is null.");
 		return 0;

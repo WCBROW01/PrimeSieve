@@ -27,6 +27,6 @@ long findPrimes(long limit) {
 			for (long multiple = num * num; multiple <= limit; multiple += 2 * num)
 				ClearBit(primes, multiple);
 	
-	numPrimes = countBits(primes, limit + 1);
+	numPrimes = countBits(limit + 1, primes);
 	return numPrimes;
 }

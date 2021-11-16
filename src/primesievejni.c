@@ -3,7 +3,7 @@
 
 JNIEXPORT void JNICALL Java_PrimeSieve_findPrimes
   (JNIEnv *, jobject, jlong limit) {
-	numPrimes = findPrimes(limit);
+	findPrimes(limit);
 }
 
 JNIEXPORT jlongArray JNICALL Java_PrimeSieve_listPrimes

@@ -22,7 +22,7 @@ typedef struct {
  * An extra entry is added because integers are usually rounded down. */
 extern int32_t* makeBitArray(long length, char fillValue);
 
-extern long countBits(int32_t *bitArray, long length);
+extern long countBits(long length, int32_t *bitArray);
 
 // Creates an array, with each element being the numerical position of a 1.
 extern BitList listBits(long length, int32_t *bitArray);
