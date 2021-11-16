@@ -14,7 +14,7 @@ int32_t *semiprimes;
 long findSemiprimes(long limit) {
 	numSemiprimes = 0;
 	findPrimes(limit);
-	BitList primeList = listPrimes();
+	BitList primeList = listBits(numPrimes, primes);
 	
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit and fill it with ones. */
@@ -23,7 +23,7 @@ long findSemiprimes(long limit) {
 	// Loop through primeList, multiplying each number with the rest of the list.
 	for (long i = 0L; i < primeList.length; i++)
 		for (long j = i, multiple;
-			 multiple = primeList.list[i] * primeList.list[j] <= limit;
+			 (multiple = primeList.list[i] * primeList.list[j]) <= limit;
 			 j++)
 		{
 			SetBit(semiprimes, multiple);
@@ -32,10 +32,4 @@ long findSemiprimes(long limit) {
 	
 	free(primeList.list);
 	return numSemiprimes;
-}
-
-BitList listSemiprimes(void) {
-	BitList semiprimeList = listBits(numSemiprimes, semiprimes);
-	free(semiprimes);
-	return semiprimeList;
 }

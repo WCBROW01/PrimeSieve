@@ -14,12 +14,6 @@ JNIEXPORT jlongArray JNICALL Java_PrimeSieve_listPrimes
 	}
 	
 	BitList primeList = listBits(numPrimes, primes);
-	
-	if (primeList.list == NULL) {
-		printf("Failed to create prime list.\n");
-		return NULL;
-	}
-	
 	free(primes);
 	
 	jlongArray newPrimeList = (*env)->NewLongArray(env, primeList.length);

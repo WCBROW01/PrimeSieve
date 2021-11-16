@@ -5,7 +5,6 @@
 #include <math.h>
 
 #include "bitops.h"
-#include "bitcount.h"
 #include "primesieve.h"
 
 long numPrimes;
@@ -16,8 +15,6 @@ long findPrimes(long limit) {
 	 * so we will allocate an array based on the limit and fill every byte with
 	 * a value that pre-mark every even number. */
 	primes = makeBitArray(limit + 1, 0xaa);
-	
-	if (primes == NULL) return 0;
 	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 1);
@@ -30,6 +27,6 @@ long findPrimes(long limit) {
 			for (long multiple = num * num; multiple <= limit; multiple += 2 * num)
 				ClearBit(primes, multiple);
 	
-	numPrimes = countBits(primes, limit);
+	numPrimes = countBits(primes, limit + 1);
 	return numPrimes;
 }

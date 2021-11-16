@@ -1,7 +1,7 @@
 #ifndef PRIMESIEVE_H
 #define PRIMESIEVE_H
 
-#include "bitops.h"
+#include <stdint.h>
 
 extern long numPrimes;
 extern int32_t *primes;

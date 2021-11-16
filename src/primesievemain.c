@@ -3,22 +3,12 @@
 #include <string.h>
 #include <time.h>
 
+#include "bitops.h"
 #include "primesieve.h"
 
 void printPrimes(void) {
-	if (primes == NULL) {
-		printf("Failed to create prime list.\n");
-		printf("Reason: Sieve has not run yet.\n");
-		return;
-	}
-	
 	BitList primeList = listBits(numPrimes, primes);
-	
-	if (primeList.list == NULL) {
-		printf("Failed to create prime list.\n");
-		return;
-	}
-	
+		
 	printf("Primes found: %ld", primeList.list[0]);
 	for (long i = 1L; i < primeList.length; i++)
 		printf(", %ld", primeList.list[i]);

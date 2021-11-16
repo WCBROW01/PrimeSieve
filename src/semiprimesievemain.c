@@ -3,10 +3,11 @@
 #include <string.h>
 #include <time.h>
 
+#include "bitops.h"
 #include "semiprimesieve.h"
 
 void printSemiprimes(void) {
-	BitList semiprimeList = listSemiprimes();
+	BitList semiprimeList = listBits(numSemiprimes, semiprimes);
 	printf("Semiprimes found: %ld", semiprimeList.list[0]);
 	for (long i = 1L; i < semiprimeList.length; i++)
 		printf(", %ld", semiprimeList.list[i]);
@@ -32,6 +33,8 @@ int main(int argc, char *argv[]) {
 		// If there is a third argument, check if it is to print
 		if (argc >= 3 && strcmp(argv[2], "--print-semiprimes") == 0)
 			printSemiprimes();
+		
+		free(semiprimes);
 		
 		return 0;
 	} else {
