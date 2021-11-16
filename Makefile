@@ -1,29 +1,31 @@
 CC=gcc
 
-primesieve: ./src/primesievemain.c primesieve.o
-	$(CC) -o primesieve ./src/primesievemain.c primesieve.o -lm -O2
+primesieve: src/primesievemain.c build/primesieve.o
+	$(CC) -o primesieve src/primesievemain.c build/primesieve.o -lm -O2
 
-primesieve.o: ./src/primesieve.c
-	$(CC) -fPIC -o primesieve.o ./src/primesieve.c -c -O2
+build/primesieve.o: src/primesieve.c
+	$(CC) -fPIC -o build/primesieve.o src/primesieve.c -c -O2
 
-semiprimesieve: ./src/semiprimesievemain.c semiprimesieve.o primesieve.o
-	$(CC) -o semiprimesieve ./src/semiprimesievemain.c semiprimesieve.o primesieve.o -lm -O2
+semiprimesieve: src/semiprimesievemain.c build/semiprimesieve.o build/primesieve.o
+	$(CC) -o semiprimesieve src/semiprimesievemain.c build/semiprimesieve.o build/primesieve.o -lm -O2
 
-semiprimesieve.o: ./src/semiprimesieve.c
-	$(CC) -o semiprimesieve.o ./src/semiprimesieve.c -c -O2
+build/semiprimesieve.o: src/semiprimesieve.c
+	$(CC) -o build/semiprimesieve.o src/semiprimesieve.c -c -O2
 
-primesievejni.o: ./src/primesievejni.c
-	$(CC) -fPIC -c ./src/primesievejni.c -o primesievejni.o -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux -O2
+build/primesievejni.o: src/primesievejni.c
+	$(CC) -fPIC -c src/primesievejni.c -o build/primesievejni.o -I/usr/lib/jvm/default-java/include -I/usr/lib/jvm/default-java/include/linux -O2
 	
-libprimesievejni.so: primesievejni.o primesieve.o
-	$(CC) -shared -fPIC -o libprimesievejni.so primesievejni.o primesieve.o -lm
+build/libprimesievejni.so: build/primesievejni.o build/primesieve.o
+	$(CC) -shared -fPIC -o build/libprimesievejni.so build/primesievejni.o build/primesieve.o -lm
 
-java: libprimesievejni.so
-	javac ./src/Application.java
+java: build/libprimesievejni.so
+	javac -d build src/PrimeSieveInterface.java src/PrimeSieve.java src/Application.java
+	cd build
+	jar cvfe PrimeSieve.jar Application PrimeSieveInterface.class PrimeSieve.class Application.class libprimesievejni.so
 
-fast: ./src/primesieve.c
-	$(CC) -o primesieve.o ./src/primesieve.c -c -O2 -march=native
+fast: src/primesieve.c
+	$(CC) -o build/primesieve.o src/primesieve.c -c -O2 -march=native
 	$(MAKE) primesieve
 
 clean:
-	rm *.o
+	rm build/*
