@@ -17,6 +17,8 @@ long findPrimes(long limit) {
 	 * a value that pre-mark every even number. */
 	primes = makeBitArray(limit + 1, 0xaa);
 	
+	if (primes == NULL) return 0;
+	
 	// Predefine values that we're skipping in the sieve.
 	ClearBit(primes, 1);
 	SetBit(primes, 2);

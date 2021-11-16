@@ -7,7 +7,8 @@
 
 void printPrimes(void) {
 	if (primes == NULL) {
-		printf("Primes have not been generated yet.\n");
+		printf("Failed to create prime list.\n");
+		printf("Reason: Sieve has not run yet.\n");
 		return;
 	}
 	

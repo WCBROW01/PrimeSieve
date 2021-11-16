@@ -2,6 +2,7 @@
 #define BITOPS_H
 
 #include <stdlib.h>
+#include <stdio.h>
 #include <stdint.h>
 #include <string.h>
 
@@ -30,6 +31,12 @@ typedef struct {
 static inline int32_t* makeBitArray(long length, char fillValue) {
 	long arrayLength = length / 32 + 1;
 	int32_t *bitArray = malloc(arrayLength * sizeof(int32_t));
+	
+	if (bitArray == NULL) {
+		printf("Not enough memory to create bit array.");
+		return NULL;
+	}
+	
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
 	
 	return bitArray;
@@ -40,6 +47,12 @@ static BitList listBits(long length, int32_t *bitArray) {
 	BitList bitList;
 	bitList.length = length;
 	bitList.list = malloc(length * sizeof(long));
+	
+	if (bitList.list == NULL) {
+		printf("Not enough memory to create bit list.");
+		return bitList;
+	}
+	
 	long listIndex = 0L;
 	long bitIndex = 0L;
 	while (listIndex < length) {
@@ -47,7 +60,7 @@ static BitList listBits(long length, int32_t *bitArray) {
 			bitList.list[listIndex++] = bitIndex;
 		} bitIndex++;
 	}
-	
+
 	return bitList;
 }
 
