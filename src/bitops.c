@@ -68,7 +68,7 @@ long countBits(long length, int32_t *bitArray) {
 	
 	// Count the remaining bits bit by bit
 	for (long i = fastCountLen * 8 + 1; i < length; i++)
-		if (arrayBytes[i/8] & (BITMASKS[i%8]))
+		if (arrayBytes[fastCountLen + 1] & (BITMASKS[i%8]))
 			numOn++;
 	
 	return numOn;
