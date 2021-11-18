@@ -5,7 +5,7 @@ primesieve: src/primesievemain.c build/primesieve.o build/bitops.o
 	$(CC) -o primesieve src/primesievemain.c build/primesieve.o build/bitops.o -lm -O1
 
 build/primesieve.o: src/primesieve.c
-	$(CC) -fPIC -o build/primesieve.o src/primesieve.c -c -O2
+	$(CC) -fPIC -o build/primesieve.o src/primesieve.c -c -Ofast
 
 build/bitops.o: src/bitops.c
 	$(CC) -fPIC -o build/bitops.o src/bitops.c -c -O2
