@@ -47,7 +47,9 @@ inline int32_t* makeBitArray(long length, char fillValue) {
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
 
 	// Zero out padding at the end
-	bitArray[arrayLength - 1] &= !(BITMASKS[length % 32 + 1] - 1);
+	int32_t lastBits = bitArray[arrayLength - 1];
+    lastBits &= !((lastBits & -lastBits << 1) - 1);
+    bitArray[arrayLength - 1] = lastBits;
 
 	return bitArray;
 }
