@@ -38,14 +38,17 @@ const int32_t BITMASKS[32] = { 0x00000001, 0x00000002, 0x00000004, 0x00000008,
 inline int32_t* makeBitArray(long length, char fillValue) {
 	long arrayLength = length / 32 + 1;
 	int32_t *bitArray = malloc(arrayLength * sizeof(int32_t));
-	
+
 	if (bitArray == NULL) {
 		printf("Not enough memory to create bit array.\n");
 		return NULL;
 	}
-	
+
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
-	
+
+	// Zero out padding at the end
+	bitArray[arrayLength - 1] &= !(BITMASKS[length % 32 + 1] - 1);
+
 	return bitArray;
 }
 
@@ -54,23 +57,18 @@ long countBits(long length, int32_t *bitArray) {
 		printf("Error counting bits. The bit array is null.\n");
 		return 0;
 	}
-	
+
 	// Cast bitarray to an unsigned char array so we can count each byte
 	unsigned char *arrayBytes = (unsigned char*) bitArray;
-	
+
 	// Get # of contiguous bytes (quantity we can count fast without bitops)
-	long fastCountLen = length / 8;
-	
+	long arrayLength = length / 8 + 1;
+
 	// Count each byte by adding its value from the BITCOUNT LUT to numOn
 	long numOn = 0L;
-	for (long i = 0L; i < fastCountLen; i++)
+	for (long i = 0L; i < arrayLength; i++)
 		numOn += BITCOUNT[arrayBytes[i]];
-	
-	// Count the remaining bits bit by bit
-	for (long i = fastCountLen * 8 + 1; i < length; i++)
-		if (arrayBytes[fastCountLen + 1] & (BITMASKS[i%8]))
-			numOn++;
-	
+
 	return numOn;
 }
 
@@ -78,15 +76,15 @@ long countBits(long length, int32_t *bitArray) {
 BitList listBits(long length, int32_t *bitArray) {
 	BitList bitList;
 	bitList.length = length;
-	
+
 	if (bitArray == NULL) {
 		printf("Error listing bits. The bit array is null.");
 		bitList.list = NULL;
 		return bitList;
 	}
-	
+
 	bitList.list = malloc(length * sizeof(long));
-	
+
 	long listIndex = 0L;
 	long bitIndex = 0L;
 	while (listIndex < length) {
