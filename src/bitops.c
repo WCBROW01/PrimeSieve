@@ -2,7 +2,6 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <sys/param.h>
 
 #include "bitops.h"
 
@@ -48,11 +47,7 @@ inline int32_t* makeBitArray(long length, char fillValue) {
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
 
 	// Zero out padding at the end
-#if BYTE_ORDER == BIG_ENDIAN
-    bitArray[arrayLength - 1] &= 0xFFFFFFFF << (32 - length % 32);
-#else
-	bitArray[arrayLength - 1] &= 0xFFFFFFFF >> (32 - length % 32);
-#endif
+	bitArray[arrayLength - 1] &= BITMASKS[length % 32] - 1;
 
 	return bitArray;
 }
