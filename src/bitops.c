@@ -2,7 +2,7 @@
 #include <stdio.h>
 #include <stdint.h>
 #include <string.h>
-#include <endian.h>
+#include <sys/param.h>
 
 #include "bitops.h"
 
