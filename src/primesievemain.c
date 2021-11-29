@@ -8,11 +8,11 @@
 
 void printPrimes(void) {
 	BitList primeList = listBits(numPrimes, primes);
-		
+
 	printf("Primes found: %ld", primeList.list[0]);
 	for (long i = 1L; i < primeList.length; i++)
 		printf(", %ld", primeList.list[i]);
-		
+
 	printf("\n");
 	free(primeList.list);
 }
@@ -34,11 +34,11 @@ int main(int argc, char *argv[]) {
 		// If there is a third argument, check if it is to print
 		if (argc >= 3 && strcmp(argv[2], "--print-primes") == 0)
 			printPrimes();
-		
+
 		free(primes);
 		return 0;
 	} else {
-		printf("No limit provided.\n");
+		fprintf(stderr, "No limit provided.\n");
 		return 1;
 	}
 }

@@ -11,7 +11,7 @@ void printSemiprimes(void) {
 	printf("Semiprimes found: %ld", semiprimeList.list[0]);
 	for (long i = 1L; i < semiprimeList.length; i++)
 		printf(", %ld", semiprimeList.list[i]);
-		
+
 	printf("\n");
 	free(semiprimeList.list);
 }
@@ -33,12 +33,12 @@ int main(int argc, char *argv[]) {
 		// If there is a third argument, check if it is to print
 		if (argc >= 3 && strcmp(argv[2], "--print-semiprimes") == 0)
 			printSemiprimes();
-		
+
 		free(semiprimes);
-		
+
 		return 0;
 	} else {
-		printf("No limit provided.\n");
+		fprintf(stderr, "No limit provided.\n");
 		return 1;
 	}
 }

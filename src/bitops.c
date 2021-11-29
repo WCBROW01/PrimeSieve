@@ -1,3 +1,4 @@
+#include <assert.h>
 #include <stdlib.h>
 #include <stdio.h>
 #include <stdint.h>
@@ -41,8 +42,8 @@ int32_t *makeBitArray(long length, char fillValue) {
 	int32_t *bitArray = malloc(arrayLength * sizeof(int32_t));
 
 	if (bitArray == NULL) {
-		printf("Not enough memory to create bit array.\n");
-		return NULL;
+		fprintf(stderr, "Not enough memory to create bit array.\n");
+		exit(1);
 	}
 
 	memset(bitArray, fillValue, (arrayLength * sizeof(int32_t)));
@@ -54,10 +55,7 @@ int32_t *makeBitArray(long length, char fillValue) {
 }
 
 long countBits(long length, int32_t *bitArray) {
-	if (bitArray == NULL) {
-		printf("Error counting bits. The bit array is null.\n");
-		return 0;
-	}
+	assert(bitArray != NULL && "Error counting bits. The bit array is null.");
 
 	// Cast bitarray to an unsigned char array so we can count each byte
 	uint8_t *arrayBytes = (uint8_t*) bitArray;
@@ -78,11 +76,7 @@ BitList listBits(long length, int32_t *bitArray) {
 	BitList bitList;
 	bitList.length = length;
 
-	if (bitArray == NULL) {
-		printf("Error listing bits. The bit array is null.");
-		bitList.list = NULL;
-		return bitList;
-	}
+	assert(bitArray != NULL && "Error listing bits. The bit array is null.");
 
 	bitList.list = malloc(length * sizeof(long));
 
