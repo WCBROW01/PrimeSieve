@@ -9,7 +9,7 @@
 #define CheckBit(A,k) ( A[k/32] &   (BITMASKS[k%32]) )
 
 // LUT for the number of bits active for each byte value
-extern const char BITCOUNT[256];
+extern const uint8_t BITCOUNT[256];
 extern const int32_t BITMASKS[32];
 
 typedef struct {
