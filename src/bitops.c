@@ -73,12 +73,12 @@ long countBits(long length, int32_t *bitArray) {
 
 // Creates an array, with each element being the numerical position of a 1.
 BitList listBits(long length, int32_t *bitArray) {
-	BitList bitList;
-	bitList.length = length;
-
 	assert(bitArray != NULL && "Error listing bits. The bit array is null.");
 
-	bitList.list = malloc(length * sizeof(long));
+	BitList bitList = {
+		.length = length,
+		.list	= malloc(length * sizeof(long))
+	};
 
 	long listIndex = 0L;
 	long bitIndex = 0L;
