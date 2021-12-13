@@ -6,7 +6,7 @@
 #include "bitops.h"
 #include "semiprimesieve.h"
 
-void printSemiprimes(void) {
+static void printSemiprimes(void) {
 	BitList semiprimeList = listBits(numSemiprimes, semiprimes);
 	printf("Semiprimes found: %ld", semiprimeList.list[0]);
 	for (long i = 1L; i < semiprimeList.length; i++)
@@ -16,7 +16,7 @@ void printSemiprimes(void) {
 	free(semiprimeList.list);
 }
 
-void benchmark(long limit) {
+static void benchmark(long limit) {
 	clock_t begin = clock();
 	long numSemiprimes = findSemiprimes(limit);
 	clock_t end = clock();

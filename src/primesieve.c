@@ -9,7 +9,7 @@
 long numPrimes;
 int32_t *primes;
 
-unsigned long lsqrt(long n) {
+static inline unsigned long lsqrt(long n) {
 	unsigned long x = n / 2;
 	unsigned long xLast;
 
