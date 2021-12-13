@@ -7,7 +7,7 @@
 #include "primesieve.h"
 
 long numPrimes;
-int32_t *primes;
+BitArray *primes;
 
 static inline unsigned long lsqrt(long n) {
 	unsigned long x = n / 2;
