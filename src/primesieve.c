@@ -23,8 +23,7 @@ static inline unsigned long lsqrt(long n) {
 
 long findPrimes(long limit) {
 	/* We are going to use a bit array to save on memory and make our code faster,
-	 * so we will allocate an array based on the limit and fill every byte with
-	 * a value that pre-mark every even number. */
+	 * so we will allocate an array based on the limit, excluding even numbers. */
 	primes = makeBitArray(limit / 2, 0xFF);
 
 	// Predefine values that we're skipping in the sieve.
