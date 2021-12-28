@@ -11,6 +11,7 @@
 
 
 #define min(a, b) ((a) > (b)) ? (b) : (a)
+#define max(a, b) ((a) > (b)) ? (a) : (b)
 #define next_multiple(a, b) (a) + ((b) - (a) % (b))
 
 long numPrimes;
@@ -52,8 +53,9 @@ static void* marker_thread_fn(void* arg) {
 				unsigned long multiple = num * num;
 
 				// Seek to this thread's assigned range
-				// FIXME: this can probably be an analytic expression
-				while (multiple <= tdata.range_start) multiple += 2 * num;
+				if (multiple <= tdata.range_start) {
+					multiple += next_multiple(tdata.range_start - multiple, 2 * num);
+				}
 
 				// Mark all multiples in this thread's assigned range
 				for (; multiple <= tdata.range_end; multiple += 2 * num) {
