@@ -4,7 +4,7 @@
 #include <stdint.h>
 
 #define SetBit(A,k)   ( A[k/32] |=  (BITMASKS[k%32]) )
-#define ClearBit(A,k) ( A[k/32] &= ~(BITMASKS[k%32]) )
+#define ClearBit(A,k) ( A[k/32] &=  (BITMASKS_INV[k%32]) )
 #define FlipBit(A,k)  ( A[k/32] ^=  (BITMASKS[k%32]) )
 #define CheckBit(A,k) ( A[k/32] &   (BITMASKS[k%32]) )
 
@@ -13,6 +13,7 @@ typedef uint32_t BitArray;
 // LUT for the number of bits active for each byte value
 extern const uint8_t BITCOUNT[256];
 extern const uint32_t BITMASKS[32];
+extern const uint32_t BITMASKS_INV[32];
 
 typedef struct {
 	long length;

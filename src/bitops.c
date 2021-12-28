@@ -34,6 +34,15 @@ const uint32_t BITMASKS[32] = { 0x00000001, 0x00000002, 0x00000004, 0x00000008,
 							    0x01000000, 0x02000000, 0x04000000, 0x08000000,
 							    0x10000000, 0x20000000, 0x40000000, 0x80000000 };
 
+const uint32_t BITMASKS_INV[32] = { 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFFF7,
+									0xFFFFFFEF, 0xFFFFFFDF, 0xFFFFFFBF, 0xFFFFFF7F,
+									0xFFFFFEFF, 0xFFFFFDFF, 0xFFFFFBFF, 0xFFFFF7FF,
+									0xFFFFEFFF, 0xFFFFDFFF, 0xFFFFBFFF, 0xFFFF7FFF,
+									0xFFFEFFFF, 0xFFFDFFFF, 0xFFFBFFFF, 0xFFF7FFFF,
+									0xFFEFFFFF, 0xFFDFFFFF, 0xFFBFFFFF, 0xFF7FFFFF,
+									0xFEFFFFFF, 0xFDFFFFFF, 0xFBFFFFFF, 0xF7FFFFFF,
+									0xEFFFFFFF, 0xDFFFFFFF, 0xBFFFFFFF, 0x7FFFFFFF };
+
 /* Allocate an array of ints based on the provided length.
  * The length of the array will be divided by the length of an int.
  * An extra entry is added because integers are usually rounded down. */
