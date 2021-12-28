@@ -1,7 +1,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-#include <time.h>
+#include <sys/time.h>
 
 #include "bitops.h"
 #include "primesieve.h"
@@ -18,11 +18,18 @@ static void printPrimes(void) {
 }
 
 static void benchmark(long limit) {
-	clock_t begin = clock();
+	// Start clock
+	struct timeval begin, end;
+	gettimeofday(&begin, 0);
+
 	long numPrimes = findPrimes(limit);
-	clock_t end = clock();
-	long timeSpent = (end - begin) / (CLOCKS_PER_SEC / 1000);
-	printf("Time to complete: %ldms\n", timeSpent);
+
+
+	gettimeofday(&end, 0);
+	long seconds = end.tv_sec - begin.tv_sec;
+	long microseconds = end.tv_usec - begin.tv_usec;
+	long timeSpent = (seconds + microseconds*1e-6) * 1e6;
+	printf("Time to complete: %ldus\n", timeSpent);
 	printf("Number of primes: %ld\n",   numPrimes);
 }
 
