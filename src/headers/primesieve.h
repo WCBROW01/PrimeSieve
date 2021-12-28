@@ -2,9 +2,10 @@
 #define PRIMESIEVE_H
 
 #include <stdint.h>
+#include "bitops.h"
 
 extern long numPrimes;
-extern int32_t *primes;
+extern BitArray *primes;
 
 extern long findPrimes(long limit);
 

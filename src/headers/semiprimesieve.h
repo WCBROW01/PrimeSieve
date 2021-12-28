@@ -4,7 +4,7 @@
 #include "bitops.h"
 
 extern long numSemiprimes;
-extern int32_t *semiprimes;
+extern BitArray *semiprimes;
 
 extern long findSemiprimes(long limit);
 

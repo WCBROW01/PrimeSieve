@@ -6,7 +6,7 @@
 #include "bitops.h"
 #include "primesieve.h"
 
-void printPrimes(void) {
+static void printPrimes(void) {
 	BitList primeList = listBits(numPrimes, primes);
 
 	puts("Primes found: 2");
@@ -17,7 +17,7 @@ void printPrimes(void) {
 	free(primeList.list);
 }
 
-void benchmark(long limit) {
+static void benchmark(long limit) {
 	clock_t begin = clock();
 	long numPrimes = findPrimes(limit);
 	clock_t end = clock();
