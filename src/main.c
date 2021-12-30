@@ -7,7 +7,7 @@
 #include "primesieve.h"
 
 static void printPrimes(void) {
-	BitList primeList = listBits(numPrimes, primes);
+	BitList primeList = listBits(numPrimes - 1, primes);
 
 	printf("Primes found: 2");
 	for (long i = 0L; i < primeList.length - 1; i++)
