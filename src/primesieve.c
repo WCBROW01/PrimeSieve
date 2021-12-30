@@ -77,6 +77,10 @@ static void* marker_thread_fn(void* arg) {
 #define ATOM_SIZE 64
 
 long findPrimes(long limit) {
+	/* Avoid an off-by-one error caused by removing even numbers,
+	 * since integer division won't normally leave enough bits. */
+	limit++;
+	
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit, excluding even numbers. */
 	primes = makeBitArray(limit / 2, 0xFF);
