@@ -17,9 +17,10 @@
 long numPrimes;
 BitArray *primes;
 
-static inline unsigned long lsqrt(long n) {
-	unsigned long x = n / 2;
-	unsigned long xLast;
+static inline long lsqrt(long n) {
+	n = labs(n);
+	long x = n / 2;
+	long xLast;
 
 	do {
 		xLast = x;

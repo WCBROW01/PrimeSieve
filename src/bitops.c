@@ -46,7 +46,7 @@ const uint32_t BITMASKS_INV[32] = { 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFF
 /* Allocate an array of ints based on the provided length.
  * The length of the array will be divided by the length of an int.
  * An extra entry is added because integers are usually rounded down. */
-BitArray *makeBitArray(long length, char fillValue) {
+BitArray *makeBitArray(long length, unsigned char fillValue) {
 	long arrayLength = length / 32 + 1;
 	BitArray *bitArray = malloc(arrayLength * sizeof(BitArray));
 
