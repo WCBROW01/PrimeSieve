@@ -10,7 +10,7 @@ static void printPrimes(void) {
 	BitList primeList = listBits(numPrimes - 1, primes);
 
 	printf("Primes found: 2");
-	for (long i = 0L; i < primeList.length - 1; i++)
+	for (long i = 0L; i < primeList.length; i++)
 		printf(", %ld", 2 * primeList.list[i] + 1);
 
 	printf("\n");
