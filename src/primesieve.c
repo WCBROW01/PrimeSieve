@@ -20,12 +20,14 @@ BitArray *primes;
 static inline long lsqrt(long n) {
 	n = labs(n);
 	long x = n / 2;
-	long xLast;
+	long xLast = x;
+	long xLast2;
 
 	do {
+		xLast2 = xLast;
 		xLast = x;
 		x = (x + n / x) / 2;
-	} while (x != xLast);
+	} while (x != xLast && x != xLast2);
 
 	return x;
 }
