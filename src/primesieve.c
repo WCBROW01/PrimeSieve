@@ -42,24 +42,24 @@ typedef struct MarkerThread {
 } MarkerThread;
 
 static void* marker_thread_fn(void* arg) {
-	MarkerThread tdata = *((MarkerThread *)arg);
+	MarkerThread *tdata = (MarkerThread*) arg;
 
 	long num = 3L;
-	while (num <= tdata.check_end) {
+	while (num <= tdata->check_end) {
 		// Spinning here is fine, since it will very likely only be for a short while.
-		long main_cursor = atomic_load_explicit(tdata.check_barrier, memory_order_acquire);
+		long main_cursor = atomic_load_explicit(tdata->check_barrier, memory_order_acquire);
 
 		while (num <= main_cursor) {
 			if (CheckBit(primes, num / 2)) {
 				unsigned long multiple = num * num;
 
 				// Seek to this thread's assigned range
-				if (multiple <= tdata.range_start) {
-					multiple += next_multiple(tdata.range_start - multiple, 2 * num);
+				if (multiple <= tdata->range_start) {
+					multiple += next_multiple(tdata->range_start - multiple, 2 * num);
 				}
 
 				// Mark all multiples in this thread's assigned range
-				for (; multiple <= tdata.range_end; multiple += 2 * num) {
+				for (; multiple <= tdata->range_end; multiple += 2 * num) {
 					ClearBit(primes, multiple / 2);
 				}
 			}
