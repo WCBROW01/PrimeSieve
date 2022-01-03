@@ -19,11 +19,11 @@ def printPrimes():
 	print();
 
 def benchmark(limit):
-	begin = time.process_time_ns()
+	begin = round(time.time() * 1000000)
 	numPrimes = primesieve.findPrimes(limit)
-	end = time.process_time_ns()
-	timeSpent = (end - begin) // 1000
-	print("Time to complete: ", timeSpent, "ms", sep='')
+	end = round(time.time() * 1000000)
+	timeSpent = end - begin
+	print("Time to complete: ", timeSpent, "us", sep='')
 	print("Number of primes:", numPrimes)
 
 def main():
