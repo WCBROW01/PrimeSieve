@@ -14,7 +14,6 @@
 #define max(a, b) ((a) > (b)) ? (a) : (b)
 #define next_multiple(a, b) (a) + ((b) - (a) % (b))
 
-long numPrimes;
 BitArray *primes;
 
 static inline long lsqrt(long n) {
@@ -34,7 +33,6 @@ static inline long lsqrt(long n) {
 
 typedef struct MarkerThread {
 	pthread_t thread;
-	uint32_t* primes;
 	unsigned long check_end;
 	atomic_ulong* check_barrier;
 	/** Range start number, exclusive. */
@@ -52,7 +50,7 @@ static void* marker_thread_fn(void* arg) {
 		long main_cursor = atomic_load_explicit(tdata.check_barrier, memory_order_acquire);
 
 		while (num <= main_cursor) {
-			if (CheckBit(tdata.primes, num / 2)) {
+			if (CheckBit(primes, num / 2)) {
 				unsigned long multiple = num * num;
 
 				// Seek to this thread's assigned range
@@ -62,7 +60,7 @@ static void* marker_thread_fn(void* arg) {
 
 				// Mark all multiples in this thread's assigned range
 				for (; multiple <= tdata.range_end; multiple += 2 * num) {
-					ClearBit(tdata.primes, multiple / 2);
+					ClearBit(primes, multiple / 2);
 				}
 			}
 			num += 2;
@@ -106,7 +104,6 @@ long findPrimes(long limit) {
 
 	// Create the threads!
 	for (int i = 0; i < thread_count; i++) {
-		threads[i].primes = primes;
 		threads[i].check_barrier = &check_barrier;
 		threads[i].check_end = lsqrt(limit);
 		threads[i].range_start = main_range_end + remaining_range / ATOM_SIZE * i / thread_count * ATOM_SIZE;
@@ -141,6 +138,5 @@ long findPrimes(long limit) {
 	}
 	free(threads);
 
-	numPrimes = countBits(limit / 2, primes) + 1;
-	return numPrimes;
+	return countBits((limit + 1) / 2, primes) + 1;
 }

@@ -6,6 +6,8 @@
 #include "bitops.h"
 #include "primesieve.h"
 
+static long numPrimes;
+
 static void printPrimes(void) {
 	BitList primeList = listBits(numPrimes - 1, primes);
 
@@ -22,7 +24,7 @@ static void benchmark(long limit) {
 	struct timeval begin, end;
 	gettimeofday(&begin, 0);
 
-	long numPrimes = findPrimes(limit);
+	numPrimes = findPrimes(limit);
 
 
 	gettimeofday(&end, 0);
