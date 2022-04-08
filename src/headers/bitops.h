@@ -25,7 +25,7 @@ typedef struct {
  * An extra entry is added because integers are usually rounded down. */
 extern uint32_t* makeBitArray(long length, unsigned char fillValue);
 
-extern long countBits(long length, uint32_t *bitArray);
+extern long countBits(long start, long end, uint32_t *bitArray);
 
 // Creates an array, with each element being the numerical position of a 1.
 extern BitList listBits(long length, uint32_t *bitArray);

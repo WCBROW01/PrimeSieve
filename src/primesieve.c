@@ -39,6 +39,7 @@ typedef struct MarkerThread {
 	unsigned long range_start;
 	/** Range end number, inclusive. */
 	unsigned long range_end;
+	unsigned long num_found;
 } MarkerThread;
 
 static void* marker_thread_fn(void* arg) {
@@ -66,6 +67,9 @@ static void* marker_thread_fn(void* arg) {
 			num += 2;
 		}
 	}
+	
+	// count up results
+	tdata->num_found = countBits((tdata->range_start + 1) / 2, tdata->range_end / 2, primes);
 	return NULL;
 }
 
@@ -96,7 +100,8 @@ long findPrimes(long limit) {
 	thread_count = min(thread_count, remaining_range / ATOM_SIZE);
 
 	printf("using %ld thread(s)\n", thread_count);
-	MarkerThread* threads = calloc(thread_count, sizeof(MarkerThread));
+	MarkerThread threads[thread_count];
+	memset(threads, 0, thread_count * sizeof(MarkerThread));
 
 	// The largest number of which all multiples have been marked in the main thread's assigned
 	// range. This will be used as a memory barrier for threads.
@@ -133,10 +138,11 @@ long findPrimes(long limit) {
 
 	// Signal that the main thread is done, and wait for threads to join.
 	atomic_store_explicit(&check_barrier, lsqrt(limit), memory_order_release);
+	long num_primes = countBits(0, (main_range_end + 1) / 2, primes) + 1;
 	for (long i = 0; i < thread_count; i++) {
 		pthread_join(threads[i].thread, NULL);
+		num_primes += threads[i].num_found;
 	}
-	free(threads);
 
-	return countBits((limit + 1) / 2, primes) + 1;
+	return num_primes;
 }
