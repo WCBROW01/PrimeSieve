@@ -63,15 +63,17 @@ BitArray *makeBitArray(long length, unsigned char fillValue) {
 	return bitArray;
 }
 
+// Assumes that whatever segment you give it will only include whole bytes.
 long countBits(long start, long end, BitArray *bitArray) {
 	assert(bitArray != NULL && "Error counting bits. The bit array is null.");
 
 	// Cast bitArray to an unsigned 8-bit int array so we can count each byte
 	uint8_t *arrayBytes = (uint8_t*) bitArray;
 
-	// Get # of contiguous bytes (quantity we can count fast without bitops)
+	// Get start and end as byte indices of the bit array
 	start /= 8;
-	end /= 8;
+	// accounts for that bit at the end of the array that may not be a full segment
+	end = end > end / 8 * 8 ? end / 8 + 1 : end / 8;
 
 	// Count each byte by adding its value from the BITCOUNT LUT to numOn
 	long numOn = 0L;

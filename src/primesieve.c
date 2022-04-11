@@ -67,9 +67,9 @@ static void* marker_thread_fn(void* arg) {
 			num += 2;
 		}
 	}
-	
+
 	// count up results
-	tdata->num_found = countBits((tdata->range_start + 1) / 2, tdata->range_end / 2, primes);
+	tdata->num_found = countBits((tdata->range_start + 1) / 2, (tdata->range_end + 1) / 2, primes);
 	return NULL;
 }
 
@@ -87,7 +87,7 @@ long findPrimes(long limit) {
 	 * Using limit + 1 helps avoid an off-by-one error.*/
 	primes = makeBitArray((limit + 1) / 2, 0xFF);
 
-	long thread_count = sysconf(_SC_NPROCESSORS_ONLN) - 1;
+	long thread_count = sysconf(_SC_NPROCESSORS_ONLN);
 
 	// The main thread's assigned range ranges from 0 to main_range_end.
 	// This is the last item (inclusive) that will be potentially written to by the main thread.
