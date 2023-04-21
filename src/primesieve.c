@@ -6,12 +6,17 @@
 #include <unistd.h>
 #include <pthread.h>
 
+#ifdef _WIN32
+#define WIN32_LEAN_AND_MEAN
+#include <windows.h>
+#else
+#define min(a, b) ((a) > (b)) ? (b) : (a)
+#define max(a, b) ((a) > (b)) ? (a) : (b)
+#endif
+
 #include "bitops.h"
 #include "primesieve.h"
 
-
-#define min(a, b) ((a) > (b)) ? (b) : (a)
-#define max(a, b) ((a) > (b)) ? (a) : (b)
 #define next_multiple(a, b) (a) + ((b) - (a) % (b))
 
 BitArray *primes;
@@ -87,7 +92,13 @@ long findPrimes(long limit) {
 	 * Using limit + 1 helps avoid an off-by-one error.*/
 	primes = makeBitArray((limit + 1) / 2, 0xFF);
 
+#ifdef _WIN32
+	SYSTEM_INFO sysinfo;
+	GetSystemInfo(&sysinfo);
+	long thread_count = sysinfo.dwNumberOfProcessors;
+#else
 	long thread_count = sysconf(_SC_NPROCESSORS_ONLN);
+#endif
 
 	// The main thread's assigned range ranges from 0 to main_range_end.
 	// This is the last item (inclusive) that will be potentially written to by the main thread.
