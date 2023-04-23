@@ -19,13 +19,13 @@
 
 #define next_multiple(a, b) (a) + ((b) - (a) % (b))
 
-BitArray *primes;
+BitArray primes;
 
-static inline long lsqrt(long n) {
+static inline size_t ssqrt(size_t n) {
 	n = labs(n);
-	long x = n / 2;
-	long xLast = x;
-	long xLast2;
+	size_t x = n / 2;
+	size_t xLast = x;
+	size_t xLast2;
 
 	do {
 		xLast2 = xLast;
@@ -38,26 +38,26 @@ static inline long lsqrt(long n) {
 
 typedef struct MarkerThread {
 	pthread_t thread;
-	unsigned long check_end;
-	atomic_ulong* check_barrier;
+	size_t check_end;
+	atomic_size_t* check_barrier;
 	/** Range start number, exclusive. */
-	unsigned long range_start;
+	size_t range_start;
 	/** Range end number, inclusive. */
-	unsigned long range_end;
-	unsigned long num_found;
+	size_t range_end;
+	size_t num_found;
 } MarkerThread;
 
 static void* marker_thread_fn(void* arg) {
 	MarkerThread *tdata = (MarkerThread*) arg;
 
-	long num = 3L;
+	size_t num = 3L;
 	while (num <= tdata->check_end) {
 		// Spinning here is fine, since it will very likely only be for a short while.
-		long main_cursor = atomic_load_explicit(tdata->check_barrier, memory_order_acquire);
+		size_t main_cursor = atomic_load_explicit(tdata->check_barrier, memory_order_acquire);
 
 		while (num <= main_cursor) {
 			if (CheckBit(primes, num / 2)) {
-				unsigned long multiple = num * num;
+				size_t multiple = num * num;
 
 				// Seek to this thread's assigned range
 				if (multiple <= tdata->range_start) {
@@ -74,7 +74,7 @@ static void* marker_thread_fn(void* arg) {
 	}
 
 	// count up results
-	tdata->num_found = countBits((tdata->range_start + 1) / 2, (tdata->range_end + 1) / 2, primes);
+	tdata->num_found = countBits(primes, (tdata->range_start + 1) / 2, (tdata->range_end + 1) / 2);
 	return NULL;
 }
 
@@ -86,7 +86,7 @@ static void* marker_thread_fn(void* arg) {
  */
 #define ATOM_SIZE 64
 
-long findPrimes(long limit) {
+size_t findPrimes(size_t limit) {
 	/* We are going to use a bit array to save on memory and make our code faster,
 	 * so we will allocate an array based on the limit, excluding even numbers.
 	 * Using limit + 1 helps avoid an off-by-one error.*/
@@ -102,10 +102,10 @@ long findPrimes(long limit) {
 
 	// The main thread's assigned range ranges from 0 to main_range_end.
 	// This is the last item (inclusive) that will be potentially written to by the main thread.
-	unsigned long main_range_end = next_multiple(lsqrt(limit), ATOM_SIZE);
+	size_t main_range_end = next_multiple(ssqrt(limit), ATOM_SIZE);
 
 	// All remaining numbers will be marked by marker threads.
-	unsigned long remaining_range = next_multiple(limit - main_range_end, ATOM_SIZE);
+	size_t remaining_range = next_multiple(limit - main_range_end, ATOM_SIZE);
 
 	// Only create as many threads as we need.
 	thread_count = min(thread_count, remaining_range / ATOM_SIZE);
@@ -116,12 +116,12 @@ long findPrimes(long limit) {
 
 	// The largest number of which all multiples have been marked in the main thread's assigned
 	// range. This will be used as a memory barrier for threads.
-	atomic_ulong check_barrier = 2;
+	atomic_size_t check_barrier = 2;
 
 	// Create the threads!
 	for (int i = 0; i < thread_count; i++) {
 		threads[i].check_barrier = &check_barrier;
-		threads[i].check_end = lsqrt(limit);
+		threads[i].check_end = ssqrt(limit);
 		threads[i].range_start = main_range_end + remaining_range / ATOM_SIZE * i / thread_count * ATOM_SIZE;
 		threads[i].range_end = min(limit, main_range_end + remaining_range / ATOM_SIZE * (i + 1) / thread_count * ATOM_SIZE);
 
@@ -136,10 +136,10 @@ long findPrimes(long limit) {
 	ClearBit(primes, 0);
 
 	// Loop through all odd numbers up to the square root of limit
-	for (long num = 3L; num <= lsqrt(limit); num += 2) {
+	for (size_t num = 3; num <= ssqrt(limit); num += 2) {
 		if (CheckBit(primes, num / 2)) {
 			// Mark all odd multiples after square of prime
-			for (long multiple = num * num; multiple <= main_range_end; multiple += 2 * num) {
+			for (size_t multiple = num * num; multiple <= main_range_end; multiple += 2 * num) {
 				ClearBit(primes, multiple / 2);
 			}
 
@@ -148,9 +148,9 @@ long findPrimes(long limit) {
 	}
 
 	// Signal that the main thread is done, and wait for threads to join.
-	atomic_store_explicit(&check_barrier, lsqrt(limit), memory_order_release);
-	long num_primes = countBits(0, (main_range_end + 1) / 2, primes) + 1;
-	for (long i = 0; i < thread_count; i++) {
+	atomic_store_explicit(&check_barrier, ssqrt(limit), memory_order_release);
+	size_t num_primes = countBits(primes, 0, (main_range_end + 1) / 2) + 1;
+	for (size_t i = 0; i < thread_count; i++) {
 		pthread_join(threads[i].thread, NULL);
 		num_primes += threads[i].num_found;
 	}

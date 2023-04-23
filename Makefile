@@ -2,8 +2,11 @@ CC=gcc
 CFLAGS=-Wall -std=c99 -pedantic -I$(HEADER_DIR)
 HEADER_DIR=src/headers
 
-primesieve: src/main.c build/primesieve.o build/bitops.o
-	$(CC) $(CFLAGS) -o primesieve src/main.c build/primesieve.o build/bitops.o -lpthread -O1
+primesieve: build/main.o build/primesieve.o build/bitops.o
+	$(CC) $(CFLAGS) -o primesieve build/main.o build/primesieve.o build/bitops.o -lpthread -O1
+	
+build/main.o: src/main.c
+	$(CC) $(CFLAGS) -fPIC -o build/main.o src/main.c -c -O1
 
 build/primesieve.o: src/primesieve.c
 	$(CC) $(CFLAGS) -fPIC -o build/primesieve.o src/primesieve.c -c -Ofast

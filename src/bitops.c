@@ -46,16 +46,17 @@ const uint32_t BITMASKS_INV[32] = { 0xFFFFFFFE, 0xFFFFFFFD, 0xFFFFFFFB, 0xFFFFFF
 /* Allocate an array of ints based on the provided length.
  * The length of the array will be divided by the length of an int.
  * An extra entry is added because integers are usually rounded down. */
-BitArray *makeBitArray(long length, unsigned char fillValue) {
+BitArray makeBitArray(size_t length, unsigned char fillValue) {
 	long arrayLength = length / 32 + 1;
-	BitArray *bitArray = malloc(arrayLength * sizeof(BitArray));
+	BitArray bitArray = malloc(arrayLength * sizeof(*bitArray));
+	if (!bitArray) return NULL;
 
 	if (bitArray == NULL) {
 		fprintf(stderr, "Not enough memory to create bit array.\n");
 		exit(1);
 	}
 
-	memset(bitArray, fillValue, (arrayLength * sizeof(BitArray)));
+	memset(bitArray, fillValue, (arrayLength * sizeof(*bitArray)));
 
 	// Zero out padding at the end
 	bitArray[arrayLength - 1] &= BITMASKS[length % 32] - 1;
@@ -64,7 +65,7 @@ BitArray *makeBitArray(long length, unsigned char fillValue) {
 }
 
 // Assumes that whatever segment you give it will only include whole bytes.
-long countBits(long start, long end, BitArray *bitArray) {
+size_t countBits(BitArray bitArray, size_t start, size_t end) {
 	assert(bitArray != NULL && "Error counting bits. The bit array is null.");
 
 	// Cast bitArray to an unsigned 8-bit int array so we can count each byte
@@ -76,29 +77,30 @@ long countBits(long start, long end, BitArray *bitArray) {
 	end = end > end / 8 * 8 ? end / 8 + 1 : end / 8;
 
 	// Count each byte by adding its value from the BITCOUNT LUT to numOn
-	long numOn = 0L;
-	for (long i = start; i < end; i++)
+	size_t numOn = 0;
+	for (size_t i = start; i < end; i++)
 		numOn += BITCOUNT[arrayBytes[i]];
 
 	return numOn;
 }
 
 // Creates an array, with each element being the numerical position of a 1.
-BitList listBits(long length, BitArray *bitArray) {
+BitList listBits(BitArray bitArray, size_t ba_len, size_t *bl_len) {
 	assert(bitArray != NULL && "Error listing bits. The bit array is null.");
 
-	BitList bitList = {
-		.length = length,
-		.list	= malloc(length * sizeof(long))
-	};
+	// compute size
+	size_t length = 0;
+	for (size_t bitIndex = 0; bitIndex < ba_len; bitIndex++)
+		if (CheckBit(bitArray, bitIndex)) ++length;
 
-	long listIndex = 0L;
-	long bitIndex = 0L;
-	while (listIndex < length) {
+	BitList bitList = malloc(length * sizeof(*bitList));
+	if (!bitList) return NULL;
+	for (size_t bitIndex = 0, listIndex = 0; listIndex < length; bitIndex++) {
 		if (CheckBit(bitArray, bitIndex)) {
-			bitList.list[listIndex++] = bitIndex;
-		} bitIndex++;
+			bitList[listIndex++] = bitIndex;
+		}
 	}
 
+	if (bl_len) *bl_len = length;
 	return bitList;
 }

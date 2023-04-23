@@ -4,8 +4,8 @@
 #include <stdint.h>
 #include "bitops.h"
 
-extern BitArray *primes;
+extern BitArray primes;
 
-extern long findPrimes(long limit);
+extern size_t findPrimes(size_t limit);
 
 #endif
