@@ -145,14 +145,15 @@ shl al, cl
 shr bx, 3
 ret
 
-printnum: ; ax is input integer, dx will be destroyed
+printnum: ; ax is input integer, cx and dx will be destroyed
+mov cx, 10
 test ax, ax
 jz printnum_zero ; if the input number is 0, just print 0.
 printnum_proc:
 test ax, ax
 jz printnum_end ; if the dividend is zero, then exit. (this should take more than one call to execute)
 xor dx, dx
-div [ten]
+div cx
 push dx
 call printnum_proc
 ; print character
@@ -167,8 +168,6 @@ mov ah, 6
 mov dl, '0'
 int 21h
 ret
-
-ten dw 10 ; you cannot use div with an immediate value, so this will have to do :/
 
 no_arg_str db "No limit provided.$"
 numprimes_str db "Number of primes: $"
