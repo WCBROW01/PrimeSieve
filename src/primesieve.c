@@ -22,7 +22,6 @@
 BitArray primes;
 
 static inline size_t ssqrt(size_t n) {
-	n = labs(n);
 	size_t x = n / 2;
 	size_t xLast = x;
 	size_t xLast2;
