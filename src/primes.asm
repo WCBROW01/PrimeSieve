@@ -14,15 +14,15 @@ org 100h
 ; string to integer time
 	mov si, 82h
 	dec cl
-	xor ax, ax
+; we're using the value from cl but ch could have garbage data
+	xor ch, ch
 	xor bx, bx
 	arg_loop:
 ; multiply by 10
+	shl bx, 1
 	mov ax, bx
 	shl bx, 1
 	shl bx, 1
-	shl bx, 1
-	shl ax, 1
 	add bx, ax
 	xor ah, ah
 	mov al, [si]
@@ -86,7 +86,7 @@ remainder_zero:
 	mov si, 3 ; si is loop counter (cx is needed for the shift value)
 sieve_loop:
 	cmp si, [sqrtlimit]
-	jg sieve_end
+	ja sieve_end
 ; check bit
 	mov bx, si
 	shr bx, 1
@@ -111,7 +111,7 @@ clear_loop:
 	shl cx, 1
 	add di, cx
 	cmp di, [limit]
-	jle clear_loop
+	jbe clear_loop
 check_end:
 	add si, 2
 	jmp sieve_loop
@@ -153,9 +153,8 @@ genmask:
 	mov al, 1
 	shl al, cl
 ; compute the offset in the array
-	shr bx, 1
-	shr bx, 1
-	shr bx, 1
+	mov cl, 3
+	shr bx, cl
 	ret
 
 printnum: ; ax is input integer, cx and dx will be destroyed
