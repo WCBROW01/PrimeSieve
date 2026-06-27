@@ -1,5 +1,5 @@
-org 100h
 use16
+org 100h
 
 ; get command line args
 	mov cl, [80h]
@@ -19,10 +19,13 @@ use16
 	arg_loop:
 ; multiply by 10
 	mov ax, bx
-	shl bx, 3
+	shl bx, 1
+	shl bx, 1
+	shl bx, 1
 	shl ax, 1
 	add bx, ax
-	movzx ax, byte [si]
+	xor ah, ah
+	mov al, [si]
 	sub ax, '0'
 	add bx, ax
 	inc si
@@ -38,7 +41,9 @@ use16
 	jz no_extra
 	add cx, 8
 	no_extra:
-	shr cx, 3
+	shr cx, 1
+	shr cx, 1
+	shr cx, 1
 	mov [arrsize], cx
 	mov al, 0ffh
 	rep stosb
@@ -65,10 +70,15 @@ sqrt_loop:
 	add ax, bx
 	shr ax, 1
 ; loop condition
+	xor dx, dx
 	cmp ax, bx
-	setne dl
+	jz quotient_zero
+	mov dl, 1
+quotient_zero:
 	cmp ax, cx
-	setne dh
+	jz remainder_zero
+	mov dh, 1
+remainder_zero:
 	test dl, dh
 	jne sqrt_loop
 
@@ -116,7 +126,8 @@ count_loop:
 	test cx, cx
 	jz count_end
 	mov bl, [di]
-	movzx dx, byte [bitcount+bx]
+	xor dh, dh
+	mov dl, [bitcount+bx]
 	add si, dx
 	inc di
 	dec cx
@@ -142,7 +153,9 @@ genmask:
 	mov al, 1
 	shl al, cl
 ; compute the offset in the array
-	shr bx, 3
+	shr bx, 1
+	shr bx, 1
+	shr bx, 1
 	ret
 
 printnum: ; ax is input integer, cx and dx will be destroyed
