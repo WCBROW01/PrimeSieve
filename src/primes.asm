@@ -25,10 +25,9 @@ org 100h
 	shl bx, 1
 	add bx, ax
 	xor ah, ah
-	mov al, [si]
+	lodsb
 	sub ax, '0'
 	add bx, ax
-	inc si
 	loop arg_loop
 	mov [limit], bx
 
@@ -118,25 +117,23 @@ check_end:
 sieve_end:
 
 ; count bits
-	xor si, si ; stores bit count.
-	xor bx, bx
+	xor di, di ; stores bit count.
+	xor ax, ax
+	mov bx, bitcount
 	mov cx, [arrsize]
-	mov di, arr
-count_loop:
+	mov si, arr
 	test cx, cx
 	jz count_end
-	mov bl, [di]
-	xor dh, dh
-	mov dl, [bitcount+bx]
-	add si, dx
-	inc di
-	dec cx
-	jmp count_loop
+count_loop:
+	lodsb
+	xlatb
+	add di, ax
+	loop count_loop
 count_end:
 	mov ah, 9
 	mov dx, numprimes_str
 	int 21h
-	mov ax, si
+	mov ax, di
 	call printnum
 
 ; exit
